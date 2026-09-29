@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Дякуємо за внесок — як нараховуються бали</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --ink: #14181f;
+    --ink-soft: #5b6672;
+    --line: #e6e8eb;
+    --card: #f6f7f8;
+    --accent: #c6ff3d;
+    --accent-ink: #14181f;
+    --navy: #14181f;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  header {
+    padding: 28px 0 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 14px; letter-spacing: 0.02em; }
+  .brand .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent-ink); border: 2px solid var(--accent); }
+
+  .hero { padding: 40px 0 28px; }
+  .eyebrow {
+    display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink); background: var(--accent); padding: 5px 12px; border-radius: 999px; margin-bottom: 18px;
+  }
+  h1 { font-size: clamp(26px, 5vw, 38px); font-weight: 800; margin: 0 0 14px; letter-spacing: -0.01em; }
+  .lede { font-size: 17px; color: var(--ink-soft); max-width: 60ch; margin: 0; }
+
+  section { padding: 30px 0; border-top: 1px solid var(--line); }
+  h2 { font-size: 20px; font-weight: 800; margin: 0 0 14px; }
+  p { margin: 0 0 14px; font-size: 15.5px; }
+  ul { margin: 0 0 14px; padding-left: 20px; }
+  li { margin-bottom: 8px; font-size: 15.5px; }
+
+  .activity-list { display: flex; flex-direction: column; gap: 14px; }
+  .activity {
+    display: grid; grid-template-columns: 64px 1fr; gap: 16px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px 18px;
+    align-items: center;
+  }
+  .activity .points {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: var(--navy); color: var(--accent); border-radius: 12px; padding: 10px 4px; text-align: center;
+  }
+  .activity .points .num { font-size: 20px; font-weight: 800; line-height: 1; }
+  .activity .points .lbl { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.04em; color: rgba(198,255,61,0.75); margin-top: 3px; }
+  .activity h3 { font-size: 15.5px; font-weight: 700; margin: 0 0 4px; }
+  .activity p { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
+  .activity .cap { font-size: 12px; color: var(--ink-soft); margin-top: 4px; font-style: italic; }
+
+  .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 6px; }
+  .tier {
+    border: 1px solid var(--line); border-radius: 16px; padding: 20px 16px; text-align: center;
+  }
+  .tier .pct { font-size: 32px; font-weight: 800; color: var(--navy); }
+  .tier .req { font-size: 13px; color: var(--ink-soft); margin-top: 6px; }
+  .tier.top { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .tier.top .pct { color: var(--accent); }
+  .tier.top .req { color: rgba(255,255,255,0.65); }
+
+  .note-box {
+    background: var(--card); border-left: 3px solid var(--accent-ink); border-radius: 0 12px 12px 0;
+    padding: 14px 18px; font-size: 14.5px; color: var(--ink-soft);
+  }
+  .note-box b { color: var(--ink); }
+
+  .faq dt { font-weight: 700; margin-top: 16px; font-size: 15px; }
+  .faq dd { margin: 6px 0 0; color: var(--ink-soft); font-size: 14.5px; }
+
+  footer {
+    padding: 28px 0 calc(28px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--line);
+    font-size: 13px; color: var(--ink-soft);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12151a; --ink: #edf0f3; --ink-soft: #9aa3ad; --line: #262b33; --card: #191d24;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12151a; --ink: #edf0f3; --ink-soft: #9aa3ad; --line: #262b33; --card: #191d24;
+  }
+
+  @media (max-width: 560px) {
+    .activity { grid-template-columns: 56px 1fr; }
+    .tiers { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span> Growth Factory Academy</div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Дякуємо за внесок</span>
+    <h1>Як нараховуються бали і знижки</h1>
+    <p class="lede">Ваша активність у спільноті тепер перетворюється на знижку на продовження участі. Тут — усі деталі: за що саме нараховуються бали і скільки їх потрібно для кожного рівня знижки.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>За що нараховуються бали</h2>
+    <div class="activity-list">
+      <div class="activity">
+        <div class="points"><span class="num">2</span><span class="lbl">бали</span></div>
+        <div>
+          <h3>Відвідування зустрічей і подій</h3>
+          <p>Будь-яка подія чи зустріч спільноти, включно із зустрічами кланів.</p>
+          <p class="cap">Рахується активність усієї компанії: якщо були ви або хтось із вашої команди, бали нараховуються один раз за подію.</p>
+        </div>
+      </div>
+      <div class="activity">
+        <div class="points"><span class="num">20</span><span class="lbl">балів</span></div>
+        <div>
+          <h3>Виступ у спільноті</h3>
+          <p>Гостьова сесія, панель, «прожарка» кейсу, круглий стіл з власним кейсом — коли ви ділитеся своїм досвідом.</p>
+          <p class="cap">Не більше двох виступів за квартал.</p>
+        </div>
+      </div>
+      <div class="activity">
+        <div class="points"><span class="num">1</span><span class="lbl">бал</span></div>
+        <div>
+          <h3>Активність у чатах</h3>
+          <p>Питання, яке зібрало відповіді, тема чи кейс, що запустили обговорення, або змістовна відповідь іншому учаснику.</p>
+          <p class="cap">Не більше 3 балів на місяць.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Розмір знижки за квартал</h2>
+    <div class="tiers">
+      <div class="tier">
+        <div class="pct">10%</div>
+        <div class="req">від 25 балів</div>
+      </div>
+      <div class="tier">
+        <div class="pct">15%</div>
+        <div class="req">від 35 балів</div>
+      </div>
+      <div class="tier top">
+        <div class="pct">20%</div>
+        <div class="req">від 45 балів</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Що ще важливо знати</h2>
+    <dl class="faq">
+      <dt>З якого моменту рахуються бали?</dt>
+      <dd>З 1 жовтня 2026. Усе, що ви зробили з цієї дати, вже зараховується.</dd>
+
+      <dt>На що діє знижка?</dt>
+      <dd>На найближче продовження вашої участі у спільноті.</dd>
+
+      <dt>Що робити, якщо самому важко відвідувати всі події?</dt>
+      <dd>Активність ваших співробітників теж зараховується компанії. Сміливо запрошуйте на події свою команду.</dd>
+
+      <dt>Як дізнатися свій прогрес?</dt>
+      <dd>Наприкінці кожного місяця в чатах кланів публікується звіт: хто скільки набрав балів і скільки бракує до наступного рівня.</dd>
+
+      <dt>Що робити, якщо здається, що я відстаю?</dt>
+      <dd>Нічого страшного — наздогнати можна в будь-який момент до кінця кварталу.</dd>
+    </dl>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="note-box">
+      Питання? Пишіть своєму бізнес-менеджеру клану — розповімо все детальніше.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Growth Factory Academy · оновлено 29 вересня 2026</div>
+</footer>
+
+</body>
+</html>
